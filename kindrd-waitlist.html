@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kindrd — Join the Waitlist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --ink: #120822;
+      --plum: #2D0B5A;
+      --violet: #6C2BD9;
+      --mid: #9B5EF5;
+      --lavender: #C4A8FF;
+      --blush: #F5EEF8;
+      --gold: #E8A838;
+      --cream: #FBF7FF;
+      --white: #FFFFFF;
+      --gray: #7A6B8A;
+      --border: rgba(108, 43, 217, 0.15);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px 60px;
+      overflow: hidden;
+      background: var(--ink);
+    }
+
+    /* Ambient orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    .orb-1 {
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, #5B21B6 0%, transparent 70%);
+      top: -120px;
+      right: -80px;
+      opacity: 0.5;
+    }
+
+    .orb-2 {
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, #9B5EF5 0%, transparent 70%);
+      bottom: -60px;
+      left: -60px;
+      opacity: 0.35;
+    }
+
+    .orb-3 {
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, #E8A838 0%, transparent 70%);
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.12;
+    }
+
+    /* Star field */
+    .stars {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 20% 30%, rgba(255, 255, 255, 0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 15%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 80% 55%, rgba(255, 255, 255, 0.5) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 40% 70%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 10% 85%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 25%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 35% 45%, rgba(196, 168, 255, 0.5) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 70% 80%, rgba(196, 168, 255, 0.3) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 720px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(108, 43, 217, 0.25);
+      border: 1px solid rgba(196, 168, 255, 0.3);
+      color: var(--lavender);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: scale(1.4);
+      }
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(52px, 10vw, 96px);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--lavender);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.7;
+      max-width: 500px;
+      margin: 0 auto 48px;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+
+    .hero-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--violet);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 16px 36px;
+      border-radius: 100px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 40px rgba(108, 43, 217, 0.4);
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .hero-cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 50px rgba(108, 43, 217, 0.55);
+    }
+
+    .hero-cta-btn svg {
+      transition: transform 0.2s;
+    }
+
+    .hero-cta-btn:hover svg {
+      transform: translateX(3px);
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255, 255, 255, 0.25);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: fadeUp 1s 0.6s ease both;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
+      animation: scrollDrop 1.8s ease infinite;
+    }
+
+    @keyframes scrollDrop {
+      0% {
+        transform: scaleY(0);
+        transform-origin: top;
+      }
+
+      50% {
+        transform: scaleY(1);
+        transform-origin: top;
+      }
+
+      51% {
+        transform: scaleY(1);
+        transform-origin: bottom;
+      }
+
+      100% {
+        transform: scaleY(0);
+        transform-origin: bottom;
+      }
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--plum);
+      padding: 28px 24px;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 48px;
+      border-right: 1px solid rgba(196, 168, 255, 0.15);
+    }
+
+    .stat-item:last-child {
+      border-right: none;
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--lavender);
+      letter-spacing: 0.06em;
+      margin-top: 2px;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .section {
+      padding: 100px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 60px;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--violet);
+    }
+
+    .stages {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .stage-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .stage-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(108, 43, 217, 0.1);
+    }
+
+    .stage-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--violet), var(--mid));
+    }
+
+    .stage-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 60px;
+      font-weight: 900;
+      color: rgba(108, 43, 217, 0.07);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .stage-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--violet);
+      margin-bottom: 12px;
+    }
+
+    .stage-desc {
+      font-size: 15px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    /* ── FORM SECTION ── */
+    .form-section {
+      background: var(--ink);
+      padding: 100px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-section .orb-1 {
+      opacity: 0.3;
+    }
+
+    .form-section .orb-2 {
+      opacity: 0.2;
+    }
+
+    .form-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+
+    .form-header .section-eyebrow {
+      color: var(--lavender);
+    }
+
+    .form-header .section-title {
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .form-header p {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.7;
+    }
+
+    .form-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(196, 168, 255, 0.12);
+      border-radius: 24px;
+      padding: 48px 44px;
+      backdrop-filter: blur(10px);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 560px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .form-card {
+        padding: 32px 24px;
+      }
+
+      .stat-item {
+        padding: 12px 24px;
+      }
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--lavender);
+    }
+
+    input,
+    select,
+    textarea {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(196, 168, 255, 0.18);
+      border-radius: 10px;
+      padding: 14px 16px;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      width: 100%;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(255, 255, 255, 0.25);
+    }
+
+    select option {
+      background: var(--plum);
+      color: var(--white);
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(196, 168, 255, 0.5);
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--violet);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 18px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 0 30px rgba(108, 43, 217, 0.35);
+      margin-top: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      background: var(--mid);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 40px rgba(108, 43, 217, 0.5);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    /* Spinner */
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Success state */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 48px 24px;
+    }
+
+    .success-icon {
+      width: 72px;
+      height: 72px;
+      background: rgba(108, 43, 217, 0.2);
+      border: 1px solid rgba(196, 168, 255, 0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 32px;
+    }
+
+    .success-msg h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .success-msg p {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.7;
+    }
+
+    /* Error */
+    .error-msg {
+      display: none;
+      background: rgba(220, 38, 38, 0.12);
+      border: 1px solid rgba(220, 38, 38, 0.3);
+      border-radius: 10px;
+      padding: 14px 16px;
+      color: #FCA5A5;
+      font-size: 13px;
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    /* Privacy note */
+    .privacy-note {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.25);
+      line-height: 1.6;
+    }
+
+    .privacy-note a {
+      color: var(--lavender);
+      text-decoration: none;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--plum);
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .footer-tag {
+      font-size: 13px;
+      color: var(--lavender);
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.25);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="stars"></div>
+
+    <div class="hero-content">
+      <div class="pill">
+        <span class="pill-dot"></span>
+        Launching in Pune — Join the Waitlist
+      </div>
+
+      <h1>You're not<br /><em>broken.</em> You're<br />between chapters.</h1>
+
+      <p class="hero-sub">
+        Kindrd is the healing-first app that matches you with people who actually get what you're going through — then
+        helps you rediscover life, one experience at a time.
+      </p>
+
+      <a href="#waitlist" class="hero-cta-btn">
+        Get Early Access
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+  </section>
+
+  <!-- ── STATS BAR ── -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-num">13M+</span>
+      <span class="stat-label">Breakups/year in India</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">0</span>
+      <span class="stat-label">Apps built for this moment</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">Pune</span>
+      <span class="stat-label">Launching first</span>
+    </div>
+  </div>
+
+  <!-- ── HOW IT WORKS ── -->
+  <section class="section">
+    <div class="reveal">
+      <div class="section-eyebrow">How Kindrd works</div>
+      <div class="section-title">Heal first.<br /><em>Then</em> connect.</div>
+    </div>
+
+    <div class="stages">
+      <div class="stage-card reveal">
+        <div class="stage-num">01</div>
+        <div class="stage-name">Heal</div>
+        <div class="stage-desc">Start anonymous. Join community groups matched by how your relationship ended — ghosted,
+          cheated on, mutual split. Daily check-ins. No pressure.</div>
+      </div>
+      <div class="stage-card reveal">
+        <div class="stage-num">02</div>
+        <div class="stage-name">Connect</div>
+        <div class="stage-desc">When you're ready, reveal your profile. Get matched 1-on-1 with kindred souls who share
+          your experience, your city, your personality.</div>
+      </div>
+      <div class="stage-card reveal">
+        <div class="stage-num">03</div>
+        <div class="stage-name">Explore</div>
+        <div class="stage-desc">Kindrd plans the whole thing. Hand-curated local experiences — from Vohuman Cafe
+          mornings to Koregaon Park evenings. Just show up.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WAITLIST FORM ── -->
+  <section class="form-section" id="waitlist">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="form-wrap">
+      <div class="form-header reveal">
+        <div class="section-eyebrow">Early access</div>
+        <div class="section-title">Be the first to<br /><em>find your kindred.</em></div>
+        <p>We're doing a closed beta in Pune. Limited spots. Tell us a little about yourself and we'll reach out when
+          you're up.</p>
+      </div>
+
+      <div class="form-card reveal">
+        <!-- Form -->
+        <form id="kindrdForm">
+          <div class="form-row">
+            <div class="field">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="First name is fine" required />
+            </div>
+            <div class="field">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="you@email.com" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="city">Your City</label>
+              <select id="city" name="city" required>
+                <option value="" disabled selected>Select city</option>
+                <option>Pune</option>
+                <option>Mumbai</option>
+                <option>Bangalore</option>
+                <option>Delhi</option>
+                <option>Hyderabad</option>
+                <option>Chennai</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="age">Age & Status</label>
+              <select id="age" name="age_relationship_status" required>
+                <option value="" disabled selected>Select</option>
+                <option>18–22, Recently single</option>
+                <option>23–27, Recently single</option>
+                <option>28–32, Recently single</option>
+                <option>33–38, Recently single</option>
+                <option>39+, Recently single</option>
+                <option>Currently in a relationship</option>
+                <option>Prefer not to say</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="breakup">How recent was your last breakup?</label>
+            <select id="breakup" name="breakup_recency" required>
+              <option value="" disabled selected>Select a timeframe</option>
+              <option>Less than 1 month ago</option>
+              <option>1–3 months ago</option>
+              <option>3–6 months ago</option>
+              <option>6–12 months ago</option>
+              <option>Over a year ago</option>
+              <option>I'd rather not say</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="want">What would you most want from Kindrd?</label>
+            <textarea id="want" name="what_they_want"
+              placeholder="e.g. someone who actually gets it, low-pressure meetups, just friends for now..."
+              rows="3"></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <div class="btn-inner">
+              <div class="spinner" id="spinner"></div>
+              <span id="btnText">Join the Waitlist →</span>
+            </div>
+          </button>
+
+          <div class="error-msg" id="errorMsg">
+            Something went wrong. Please try again or email us at hello@kindrd.app
+          </div>
+        </form>
+
+        <!-- Success state (hidden) -->
+        <div class="success-msg" id="successMsg">
+          <div class="success-icon">✦</div>
+          <h3>You're on the list.</h3>
+          <p>We'll reach out when Kindrd launches in your city.<br />In the meantime — be gentle with yourself.</p>
+        </div>
+      </div>
+
+      <p class="privacy-note">
+        No spam, ever. Your data is used only to notify you about Kindrd's launch.<br />
+        Questions? <a href="mailto:hello@kindrd.app">hello@kindrd.app</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-brand">Kindrd</div>
+    <div class="footer-tag">Find your kindred spirit. Start with healing.</div>
+    <div class="footer-copy">© 2025 Kindrd. Pune, India.</div>
+  </footer>
+
+  <script>
+    // ── CONFIG — Paste your Google Apps Script URL here ──
+    // After deploying your Apps Script (see setup guide below),
+    // replace the placeholder URL with your actual deployment URL.
+    const SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyQaEt5aWO8G8d-us5c9HJImBvKYnAdgzZnwotGzLwFOGhmXku2FML1fpmGx4pdO15orA/exec";
+
+    // ── SCROLL REVEAL ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── FORM SUBMISSION ──
+    const form = document.getElementById('kindrdForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const spinner = document.getElementById('spinner');
+    const successMsg = document.getElementById('successMsg');
+    const errorMsg = document.getElementById('errorMsg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorMsg.style.display = 'none';
+
+      // Loading state
+      submitBtn.disabled = true;
+      spinner.style.display = 'block';
+      btnText.textContent = 'Sending...';
+
+      const payload = {
+        timestamp: new Date().toISOString(),
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        city: form.city.value,
+        age_relationship_status: form.age_relationship_status.value,
+        breakup_recency: form.breakup_recency.value,
+        what_they_want: form.what_they_want.value.trim(),
+      };
+
+      try {
+        // Google Apps Script accepts POST with JSON body
+        const res = await fetch(SHEET_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          mode: 'no-cors', // Required for Apps Script
+        });
+
+        // no-cors means we can't read the response, so we assume success
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+
+      } catch (err) {
+        console.error(err);
+        errorMsg.style.display = 'block';
+        submitBtn.disabled = false;
+        spinner.style.display = 'none';
+        btnText.textContent = 'Join the Waitlist →';
+      }
+    });
+  </script>
+</body>
+
+</html>
